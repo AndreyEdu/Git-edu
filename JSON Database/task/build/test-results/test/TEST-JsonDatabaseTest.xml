@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="JsonDatabaseTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-01-26T13:03:43" hostname="DESKTOP-EHNMICB" time="0.345">
+  <properties/>
+  <testcase name="start" classname="JsonDatabaseTest" time="0.345"/>
+  <system-out><![CDATA[?[1;31m
+Start test 1?[0m
+Server started!
+Client started!
+Sent: exit
+?[1;31m
+Start test 2?[0m
+Server started!
+Client started!
+Sent: get 1
+Client started!
+Sent: set 1 Hello world! 
+Client started!
+Sent: set 1 HelloWorld! 
+Client started!
+Sent: get 1
+Client started!
+Sent: delete 1
+Client started!
+Sent: delete 1
+Client started!
+Sent: get 1
+Client started!
+Sent: set 55 Some text here 
+Client started!
+Sent: get 55
+Client started!
+Sent: get 56
+Client started!
+Sent: delete 55
+Client started!
+Sent: delete 56
+Client started!
+Sent: delete 100
+Client started!
+Sent: delete 1001
+Client started!
+Sent: exit
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
