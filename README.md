@@ -1,2 +1,0 @@
-# Git-edu
-Learning git
