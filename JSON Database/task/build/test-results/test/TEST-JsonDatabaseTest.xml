@@ -1,45 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="JsonDatabaseTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-01-26T13:03:43" hostname="DESKTOP-EHNMICB" time="0.345">
+<testsuite name="JsonDatabaseTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-01-31T12:10:29" hostname="DESKTOP-EHNMICB" time="0.792">
   <properties/>
-  <testcase name="start" classname="JsonDatabaseTest" time="0.345"/>
+  <testcase name="start" classname="JsonDatabaseTest" time="0.792"/>
   <system-out><![CDATA[?[1;31m
 Start test 1?[0m
 Server started!
 Client started!
-Sent: exit
+Sent: {"type":"exit"}
 ?[1;31m
 Start test 2?[0m
 Server started!
 Client started!
-Sent: get 1
+Sent: {"type":"get","key":"1"}
 Client started!
-Sent: set 1 Hello world! 
+Sent: {"type":"set","key":"1","value":"Hello world!"}
 Client started!
-Sent: set 1 HelloWorld! 
+Sent: {"type":"set","key":"1","value":"HelloWorld!"}
 Client started!
-Sent: get 1
+Sent: {"type":"get","key":"1"}
 Client started!
-Sent: delete 1
+Sent: {"type":"delete","key":"1"}
 Client started!
-Sent: delete 1
+Sent: {"type":"delete","key":"1"}
 Client started!
-Sent: get 1
+Sent: {"type":"get","key":"1"}
 Client started!
-Sent: set 55 Some text here 
+Sent: {"type":"set","key":"text","value":"Some text here"}
 Client started!
-Sent: get 55
+Sent: {"type":"get","key":"text"}
 Client started!
-Sent: get 56
+Sent: {"type":"get","key":"56"}
 Client started!
-Sent: delete 55
+Sent: {"type":"delete","key":"56"}
 Client started!
-Sent: delete 56
+Sent: {"type":"delete","key":"100"}
 Client started!
-Sent: delete 100
+Sent: {"type":"delete","key":"That key doesn\u0027t exist"}
 Client started!
-Sent: delete 1001
-Client started!
-Sent: exit
+Sent: {"type":"exit"}
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

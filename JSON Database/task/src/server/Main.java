@@ -1,12 +1,13 @@
 package server;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
+import client.JSON;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import java.io.*;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Arrays;
 
 public class Main {
 
@@ -21,9 +22,9 @@ public class Main {
                 Socket socket = server.accept();
                 DataInputStream input = new DataInputStream(socket.getInputStream());
                 DataOutputStream output = new DataOutputStream(socket.getOutputStream())) {
-                String request = input.readUTF();
-                output.writeUTF(run(request));
-                if (request.contains("exit")) {
+                JSON json = new Gson().fromJson(input.readUTF(), JSON.class);
+                output.writeUTF(new Gson().toJson(run(json)));
+                if (json.getType().contains("exit")) {
                     break;
                 }
             } catch (IOException e) {
@@ -33,36 +34,26 @@ public class Main {
     }
 
 
-    public static String run(String request) {
-        String[] input = request.split(":");
+    public static JSONResponse run(JSON json) {
 
-        int index = 0;
+        JSONResponse jsonResponse = new JSONResponse();
 
-        if (input.length > 1) {
-            index = Integer.parseInt(input[1]);
-        }
-
-        String text = "";
-
-        if (input.length > 2) {
-            StringBuilder sb = new StringBuilder();
-            for (int i = 2; i < input.length; i++) {
-                sb.append(input[i]).append(" ");
-            }
-            text = sb.toString();
-        }
-
-        switch (input[0]) {
+        switch (json.getType()) {
             case "get":
-                return Data.get(index);
+                Data.get(json.getKey(), jsonResponse);
+                return jsonResponse;
             case "set":
-                return Data.set(index, text);
+                Data.set(json.getKey(), json.getValue(), jsonResponse);
+                return jsonResponse;
             case "delete":
-                return Data.delete(index);
+                Data.delete(json.getKey(), jsonResponse);
+                return jsonResponse;
             case "exit":
-                return "OK";
+                jsonResponse.setResponse("OK");
+                return jsonResponse;
             default:
-                return "ERROR";
+                jsonResponse.setResponse("ERROR");
+                return jsonResponse;
         }
     }
 }

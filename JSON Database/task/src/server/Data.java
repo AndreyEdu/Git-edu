@@ -1,44 +1,47 @@
 package server;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class Data {
 
-    private static Map<Integer, String> data;
+    private static Map<String, String> data = new HashMap<>();
 
-    private static final String ERROR = "ERROR";
-    private static final String OK = "OK";
+    static final String ERROR = "ERROR";
+    static final String OK = "OK";
 
-    public static String set(int index, String text) {
+    static final String NO_SUCH_KEY = "No such key";
+
+    public static JSONResponse set(String index, String text, JSONResponse jsonResponse) {
         data.put(index, text);
-        return ok();
+        jsonResponse.setResponse(OK);
+        return jsonResponse;
     }
 
-    public static String get(int index) {
+    public static JSONResponse get(String index, JSONResponse jsonResponse) {
         if (haveSomeText(index)) {
-            return data.get(index);
+            jsonResponse.setResponse(OK);
+            jsonResponse.setValue(data.get(index));
         } else {
-            return error();
+            jsonResponse.setResponse(ERROR);
+            jsonResponse.setReason(NO_SUCH_KEY);
         }
+        return jsonResponse;
     }
 
-    public static String delete(int index) {
+    public static JSONResponse delete(String index, JSONResponse jsonResponse) {
         if (haveSomeText(index)) {
             data.remove(index);
+            jsonResponse.setResponse(OK);
+        } else {
+            jsonResponse.setResponse(ERROR);
+            jsonResponse.setReason(NO_SUCH_KEY);
         }
-        return ok();
+        return jsonResponse;
     }
 
 
-    private static boolean haveSomeText(int index) {
+    private static boolean haveSomeText(String index) {
         return !(data.get(index) == null);
-    }
-
-    private static String error() {
-        return ERROR;
-    }
-
-    private static String ok() {
-        return OK;
     }
 }

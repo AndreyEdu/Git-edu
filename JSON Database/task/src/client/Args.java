@@ -7,17 +7,17 @@ public class Args {
 
     @Parameter(names = {"-t"})
     private String request;
-    @Parameter(names = {"-i"})
-    private String index;
-    @Parameter(names = "-m", variableArity = true)
+    @Parameter(names = {"-k"})
+    private String key;
+    @Parameter(names = "-v", variableArity = true)
     private List<String> valueToSave;
 
     public String getRequest() {
         return request;
     }
 
-    public String getIndex() {
-        return index;
+    public String getKey() {
+        return key;
     }
 
     public String getValueToSave() {
@@ -26,7 +26,7 @@ public class Args {
             for (String s : valueToSave) {
                 sb.append(s).append(" ");
             }
-            return sb.toString();
+            return sb.toString().trim();
         } else {
             return null;
         }

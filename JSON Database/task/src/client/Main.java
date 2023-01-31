@@ -1,10 +1,9 @@
 package client;
 
 import com.beust.jcommander.JCommander;
+import com.google.gson.Gson;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
 
@@ -25,14 +24,14 @@ public class Main {
         try (DataInputStream input = new DataInputStream(socket.getInputStream());
              DataOutputStream output = new DataOutputStream(socket.getOutputStream())) {
             if (arguments.getValueToSave() != null) {
-                output.writeUTF(arguments.getRequest() + ":" + arguments.getIndex() + ":" + arguments.getValueToSave());
-                System.out.println("Sent: " + arguments.getRequest() + " " + arguments.getIndex() + " " + arguments.getValueToSave());
-            } else if (arguments.getIndex() == null) {
-                output.writeUTF(arguments.getRequest());
-                System.out.println("Sent: " + arguments.getRequest());
+                output.writeUTF(new Gson().toJson(new JSON(arguments.getRequest(), arguments.getKey(), arguments.getValueToSave())));
+                System.out.println("Sent: " + new Gson().toJson(new JSON(arguments.getRequest(), arguments.getKey(), arguments.getValueToSave())));
+            } else if (arguments.getKey() == null) {
+                output.writeUTF(new Gson().toJson(new JSON(arguments.getRequest())));
+                System.out.println("Sent: " + new Gson().toJson(new JSON(arguments.getRequest())));
             } else {
-                output.writeUTF(arguments.getRequest() + ":" + arguments.getIndex());
-                System.out.println("Sent: " + arguments.getRequest() + " " + arguments.getIndex());
+                output.writeUTF(new Gson().toJson(new JSON(arguments.getRequest(), arguments.getKey())));
+                System.out.println("Sent: " + new Gson().toJson(new JSON(arguments.getRequest(), arguments.getKey())));
             }
             System.out.print("Received: " + input.readUTF());
         } catch (IOException e) {
