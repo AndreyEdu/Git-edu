@@ -1,46 +1,37 @@
 package server;
 
+import java.util.Map;
+
 public class Data {
 
-    private static String[] array = new String[1001];
+    private static Map<Integer, String> data;
 
     private static final String ERROR = "ERROR";
     private static final String OK = "OK";
 
     public static String set(int index, String text) {
-        if (indexExist(index)) {
-            array[index] = text;
-            return ok();
-        } else {
-            return error();
-        }
+        data.put(index, text);
+        return ok();
     }
 
     public static String get(int index) {
-        if (indexExist(index) && haveSomeText(index)) {
-            return array[index];
+        if (haveSomeText(index)) {
+            return data.get(index);
         } else {
             return error();
         }
     }
 
     public static String delete(int index) {
-        if (indexExist(index)) {
-            if (haveSomeText(index)) {
-                array[index] = null;
-            }
-            return ok();
-        } else {
-            return error();
+        if (haveSomeText(index)) {
+            data.remove(index);
         }
+        return ok();
     }
 
-    private static boolean indexExist(int index) {
-        return index >= 1 && index <= 1000;
-    }
 
     private static boolean haveSomeText(int index) {
-        return !(array[index] == null);
+        return !(data.get(index) == null);
     }
 
     private static String error() {
